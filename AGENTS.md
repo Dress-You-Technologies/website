@@ -14,7 +14,7 @@ node --check dist/app.mjs                                       # syntax
 ## Layout
 
 - `dist/index.html` — markup and all SEO metadata (canonical, Open Graph, JSON-LD).
-- `dist/sequence.mjs` — the timeline: phase boundaries, tagline rhythm. Pure, unit-tested.
+- `dist/sequence.mjs` — the timeline: phase boundaries, tagline pacing. Pure, unit-tested.
 - `dist/app.mjs` — DOM wiring and the rAF loop. Imports `sequence.mjs`.
 - `dist/style.css` — layout, the stamp entrance, and the phase-driven visibility rules.
 - `tests/` — Node's built-in runner against a hand-rolled DOM stub. No framework.

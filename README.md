@@ -1,6 +1,6 @@
 # DressYou — Coming soon
 
-Standalone static site. Six approved Parisian motion photographs repeat as hard cuts for three seconds while “coming soon” fills white from left to right. The photographs fade behind a small logo as it eases into the center, shifts left, and types the lowercase dressyou wordmark. The tagline shares the wordmark’s center, with the symbol hanging to the left, and types in about 1.6 seconds with pauses and varied timing before the replay control appears. Reduced-motion preferences skip to the final identity.
+Standalone static site. Six approved Parisian motion photographs repeat as hard cuts for three seconds while “coming soon” fills white from left to right. The photographs fade behind a small logo as it eases into the center, shifts left, and types the lowercase dressyou wordmark. The tagline shares the wordmark’s center, with the symbol hanging to the left, and types in about 1.6 seconds at a constant pace before the replay control appears. Reduced-motion preferences skip to the final identity.
 
 Run `python3 -m http.server 4173 --bind 127.0.0.1 --directory dist`.
 

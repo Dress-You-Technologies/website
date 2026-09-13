@@ -32,16 +32,16 @@ test('progress never retreats or exceeds completion; a replay begins cleanly', (
   assert.equal(frameAt(0).shot, -1);
 });
 
-test('tagline types the first word fast, varies later pacing, and completes before rest', async () => {
+test('tagline types at one constant pace and completes before rest', async () => {
   const { taglineText, taglineTimes } = await import('../dist/sequence.mjs');
   assert.equal(taglineText, 'the new way to experience fashion.');
   assert.equal(taglineTimes.length, taglineText.length);
   const gaps = taglineTimes.map((time, i) => time - (taglineTimes[i - 1] ?? 0));
   assert.ok(gaps.every(gap => gap > 0));
-  assert.ok(gaps[4] > gaps[0]);
-  assert.ok(gaps[5] > gaps[1]);
-  assert.notEqual(gaps[2], gaps[1]);
-  assert.ok(new Set(gaps).size > 3);
+  // Every character after the opening beat shares one interval: no per-word rhythm.
+  const typing = gaps.slice(1);
+  assert.equal(new Set(typing).size, 1, 'typing must be linear');
+  assert.ok(gaps[0] >= typing[0], 'a single beat precedes the first character');
   assert.ok(taglineTimes.at(-1) <= timing.tagline);
   assert.ok(timing.tagline <= 1700, 'tagline should finish in about half the previous time');
   assert.ok(timing.spawn > 300 && timing.shift > 220 && timing.write > 640);

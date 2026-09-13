@@ -1,15 +1,10 @@
-// Art-directed typing: text, letter interval and pause before each word, in milliseconds.
-const words = [['the ', 32, 0], ['new ', 78, 150], ['way ', 48, 90], ['to ', 80, 120], ['experience ', 55, 160], ['fashion.', 85, 100]];
-export const taglineText = words.map(([word]) => word).join('');
-// Keep the irregular rhythm, but finish the tagline twice as quickly.
-const taglinePace = .5;
-let cursor = 180;
-export const taglineTimes = words.flatMap(([word, interval, pause]) => {
-  cursor += pause;
-  return Array.from(word, (_, index) => cursor += interval + (index % 3 - 1) * 7);
-}).map(time => time * taglinePace);
+// Linear typing: one opening beat, then every character shares a single interval.
+export const taglineText = 'the new way to experience fashion.';
+const taglineLead = 90;
+const taglineInterval = 40;
+export const taglineTimes = Array.from(taglineText, (_, index) => taglineLead + (index + 1) * taglineInterval);
 // The user extended the montage by 50% and requested a slower ease-out into the identity.
-export const timing = { opening: 120, shot: 120, loading: 3000, hold: 80, spawn: 700, shift: 600, write: 900, tagline: (cursor + 250) * taglinePace };
+export const timing = { opening: 120, shot: 120, loading: 3000, hold: 80, spawn: 700, shift: 600, write: 900, tagline: taglineTimes.at(-1) + 125 };
 timing.total = timing.loading + timing.spawn + timing.shift + timing.write + timing.tagline;
 
 export function frameAt(elapsed, imageCount = 0) {
