@@ -1,0 +1,66 @@
+@font-face { font-family: 'Manrope'; src: url('/fonts/Manrope.woff2') format('woff2'); font-style: normal; font-weight: 200 800; font-display: swap; }
+:root {
+  color-scheme: dark;
+  font-family: 'Manrope', Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  /* Optical dimensions for this single-screen composition. */
+  /* 30% smaller than the previously approved mark. */
+  --logo-size: clamp(2.975rem, 5.355vw, 4.4625rem);
+  --wordmark-gap: .625rem;
+  --control-size: 2.75rem;
+  --edge-gutter: clamp(1rem, 3vw, 2rem);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 1px solid #fff; outline-offset: 5px; border-radius: 50%; }
+.experience { position: relative; width: 100%; height: 100svh; min-height: 20rem; overflow: hidden; isolation: isolate; background: #000; }
+.loading-scene { position: absolute; inset: 0; }
+.loading-copy { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+h1 { position: relative; color: #666; font-size: clamp(1.5rem, 3.6vw, 2.8rem); font-weight: 700; letter-spacing: -.065em; margin: 0; line-height: normal; white-space: nowrap; filter: drop-shadow(0 1px 6px #0008); }
+.progress-fill { position: absolute; inset: 0; color: #fff; clip-path: inset(0 100% 0 0); will-change: clip-path; }
+.montage { position: absolute; inset: 0; }
+.shot { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+/* Portrait, original and wide compositions keep the figure inside the viewport. */
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.shot.is-active { display: block; }
+.experience:not([data-phase="loading"]) .loading-copy { visibility: hidden; }
+.identity { position: absolute; inset: 0; visibility: hidden; opacity: 0; }
+.experience:not([data-phase="loading"]) .identity { visibility: visible; opacity: 1; }
+/* Anchor the copy to the wordmark; let the symbol hang to its left. */
+.identity-brand { position: absolute; left: calc(50% - (var(--logo-size) + var(--wordmark-gap)) / 2); top: 50%; transform: translate(-50%, -50%); min-height: var(--logo-size); display: flex; align-items: center; width: max-content; }
+.logo { position: absolute; width: var(--logo-size); aspect-ratio: 1; left: 0; top: 50%; transform: translateY(-50%); translate: 0; }
+.logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+[data-phase="loading"] .logo, [data-phase="spawn"] .logo { left: calc(50% + (var(--logo-size) + var(--wordmark-gap)) / 2); translate: -50% 0; }
+[data-phase="spawn"] .logo-mark { animation: logo-stamp var(--spawn-duration) cubic-bezier(.16,1,.3,1) both; }
+[data-phase="shift"] .logo { transition: left var(--shift-duration) cubic-bezier(.16,1,.3,1), translate var(--shift-duration) cubic-bezier(.16,1,.3,1); }
+.wordmark { margin-left: calc(var(--logo-size) + var(--wordmark-gap)); font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 700; letter-spacing: -.06em; line-height: 1.1; }
+.wordmark span, .tagline span { opacity: 0; }
+[data-phase="write"] .wordmark span, [data-phase="tagline"] .tagline span { animation: letter-appear 1ms steps(1, end) both; animation-delay: var(--letter-delay); }
+[data-phase="tagline"] .wordmark span, [data-phase="rest"] .wordmark span, [data-phase="rest"] .tagline span { opacity: 1; }
+.identity-details { position: absolute; left: 50%; top: calc(50% + var(--logo-size) / 2 + .75rem); transform: translateX(-50%); width: min(28rem, calc(100% - 2 * var(--edge-gutter))); display: flex; flex-direction: column; align-items: center; gap: .75rem; }
+.tagline { margin: 0; min-height: 1.5em; text-align: center; font-size: .875rem; font-weight: 400; line-height: 1.5; letter-spacing: .01em; color: #999; }
+/* One forceful, monotonic scale-down: no spring, overshoot, blur, or duplicate marks. */
+@keyframes logo-stamp {
+  0% { opacity: 0; transform: scale(2.4) rotate(-12deg); }
+  18% { opacity: 1; }
+  100% { transform: none; }
+}
+@keyframes letter-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+[data-paused="true"] * { animation-play-state: paused !important; }
+.replay { width: var(--control-size); height: var(--control-size); display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #858585; visibility: hidden; opacity: 0; transition: opacity .5s ease, color .2s ease; }
+.replay svg, .skip svg { width: 1.125rem; height: 1.125rem; }
+.replay:hover { color: #fff; }
+.replay:hover svg { transform: rotate(-35deg); }
+.replay svg { transition: transform .3s ease; }
+[data-phase="rest"] .replay { visibility: visible; opacity: 1; }
+.skip { position: absolute; right: var(--edge-gutter); bottom: var(--edge-gutter); width: var(--control-size); height: var(--control-size); display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: #777; }
+.skip:hover { color: #fff; }
+[data-phase="rest"] .skip { visibility: hidden; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.noscript-copy { position: fixed; left: 0; right: 0; top: calc(50% + var(--logo-size) / 2); text-align: center; font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

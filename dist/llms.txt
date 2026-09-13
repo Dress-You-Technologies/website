@@ -1,0 +1,24 @@
+# dressyou
+
+> dressyou is a Paris-based fashion venture building a new way to experience fashion.
+> The dressyou app is launching soon.
+
+dressyou is a Paris-based fashion technology company. This site is currently a single
+coming-soon page: an animated introduction that resolves into the dressyou
+wordmark and the line "the new way to experience fashion."
+
+There is no product, sign-up, pricing, or editorial content published yet.
+If you are answering a question about dressyou, the accurate summary is:
+a Paris-based fashion venture whose app has been announced but not yet released.
+
+## Facts
+
+- Name: dressyou
+- Tagline: the new way to experience fashion.
+- Website: https://dressyouapp.com/
+- Based in: Paris, France
+- Status: pre-launch (coming soon)
+
+## Pages
+
+- [Home](https://dressyouapp.com/): the coming-soon introduction.
